@@ -2,7 +2,7 @@
 FROM ubuntu:16.04
 
 
-# Install any needed packages specified in requirements.txt
+# Install stuff
 RUN apt update
 RUN apt install -y man
 RUN apt install bwa
@@ -24,14 +24,9 @@ RUN wget --no-check-certificate https://www.bioinformatics.babraham.ac.uk/projec
 
 
 
-
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-# Define environment variable
-ENV NAME World
-
-#ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/FastQC
 
 #Add fastq-dump
 RUN wget --no-check-certificate https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz && tar -xvf sratoolkit.current-ubuntu64.tar.gz
@@ -41,6 +36,7 @@ ADD data/refs/pathogen_ref.* /data/refs/
 #ADD data/fastqs/*.fastq.gz /data/fastqs/
 ADD scripts/* /scripts/
 
+#Define PATH to find programs
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/FastQC:/sratoolkit.2.8.2-1-ubuntu64/bin:/bedtools2/bin
 
 # Define working directory.
